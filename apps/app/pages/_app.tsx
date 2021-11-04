@@ -1,6 +1,8 @@
+import { createTheme, ThemeProvider } from '@material-ui/core';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import './styles.css';
+
+const theme = createTheme({});
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
@@ -8,16 +10,11 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Welcome to app!</title>
       </Head>
-      <div className="app">
-        <header className="flex">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/nx-logo-white.svg" alt="Nx logo" width="75" height="50" />
-          <h1>Welcome to app!</h1>
-        </header>
-        <main>
+      <main>
+        <ThemeProvider theme={theme}>
           <Component {...pageProps} />
-        </main>
-      </div>
+        </ThemeProvider>
+      </main>
     </>
   );
 }
