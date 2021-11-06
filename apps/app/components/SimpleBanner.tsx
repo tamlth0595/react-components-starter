@@ -1,32 +1,45 @@
-import { FC } from 'react';
 import { Box, makeStyles } from '@material-ui/core';
+import { FC } from 'react';
+import { Device } from '../shared/Device';
 import { PageElementProps } from '../shared/PageElementProps';
 
-interface SimpleBannerText {
-  text: string;
-}
-
-interface ElementHeight {
-  heihgt: number;
+export interface SimpleBannerDef {
+  text?: string;
+  height?: number;
 }
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: '1rem',
-    backgroundColor: 'purple',
-    color: 'white'
+    backgroundColor: "lightgreen",
+    color: "red",
+    fontSize: 30,
+    fontWeight: 700,
+    letterSpacing: 10,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 }));
 
-
+// do not remove PageElementProps to avoid collission later, we need this interface in the full app for integration
 export const SimpleBanner: FC<
-  { text: SimpleBannerText; height: ElementHeight } & PageElementProps
+  { data: SimpleBannerDef; device?: Device } & PageElementProps
 > = (props) => {
   const classes = useStyles();
   const className = `${props.className} ${classes.root}`;
+  const height = props.data?.height ? props.data?.height : 50;
   return (
-    <Box className={className} style={{ height: `${props.height}px`}}>
-      {props.text}
+    <Box
+      className={className}
+      style={props.style}
+      id={props.id}
+      onMouseMove={props.onMouseMove}
+      onDoubleClick={props.onDoubleClick}
+      onClick={props.onClick}
+      sx={{height}}
+    >
+      {props.data?.text}
     </Box>
   );
 };
